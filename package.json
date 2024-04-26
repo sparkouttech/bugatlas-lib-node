@@ -1,8 +1,8 @@
 {
-  "name": "@sanjayrahul/logger",
+  "name": "bugatlas",
   "version": "0.0.1",
   "description": "Middleware for logging API requests and responses",
-  "main": "apiLogger.js",
+  "main": "index.js",
   "type": "commonjs",
   "repository": {
     "type": "git",
@@ -15,7 +15,8 @@
   "keywords": [
     "api",
     "logger",
-    "middleware"
+    "middleware",
+    "bugatlas"
   ],
   "author": "SparkoutTech Solutions",
   "license": "MIT",

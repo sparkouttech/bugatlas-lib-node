@@ -178,9 +178,6 @@ class ApiLogger {
         }
     }
 
-
-
-
 }
 
 export default ApiLogger;
