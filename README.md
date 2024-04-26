@@ -23,12 +23,14 @@ Here are the utility functions provided by `bugatlas` along with examples:
 import ApiLogger from "bugatlas";
 ```
 
-### `const apiLogger = new ApiLogger("YourApiKey", "YourSecretKey");`
+```
+const apiLogger = new ApiLogger("YourApiKey", "YourSecretKey");
+```
 
 **Example:**
 
 ```javascript
-`index.js`
+//index.js
 import express from "express";
 import { connectDB } from "./config/db";
 import router from "./router/router";
@@ -56,14 +58,16 @@ app.listen(PORT, () => {
 });
 ```
 
-### `import { apiLogger } from "../index.js"`
+ ```
+import ApiLogger from "bugatlas"
+ ```
 
 Handle Errors in api `routes`.
 
 **Example:**
 
 ```javascript
-`router.js`
+//router.js
 import { Project } from "../model/project";
 import { responseHandler } from "../response/responseHandler";
 import ApiLogger from "bugatlas";
