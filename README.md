@@ -30,12 +30,20 @@ const apiLogger = new ApiLogger("YourApiKey", "YourSecretKey");
 **Example:**
 
 ```javascript
-//index.js
+//index.js es6
 import express from "express";
 import { connectDB } from "./config/db";
 import router from "./router/router";
 import { config } from "dotenv";
 import ApiLogger from "bugatlas";
+
+"or"
+
+const express = require("express");
+const connectDB = require("./config/db");
+const router = require("./router/router");
+const dotenv = require("dotenv");
+const ApiLogger = require("bugatlas");
 
 config();
 
