@@ -62,12 +62,13 @@ class ApiLogger {
     }
 
     async handleDuplicateKeyError(err) {
-        const regex = /.*\{.*\:\s*"(.*)"\s*\}/; // Match the pattern: { key: "value" }
-        const match = err.message.match(regex);
-        if (match) {
-            const duplicateValue = match[1];
-            await this.sendErrorToApi("MongoDuplicateKeyError", `${duplicateValue} Already exists in DB`, err.stack);
-        }
+        const value=`${Object.keys(err.keyValue).join(' and ')} already exists in DB`
+        // const regex = /.*\{.*\:\s*"(.*)"\s*\}/; // Match the pattern: { key: "value" }
+        // const match = err.message.match(regex);
+        // if (match) {
+        //     const duplicateValue = match[1];
+            await this.sendErrorToApi("MongoDuplicateKeyError", value, err.stack);
+        // }
     }
 
     async handleValidationError(err) {
