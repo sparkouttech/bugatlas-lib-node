@@ -63,6 +63,7 @@ class ApiLogger {
 
     async handleDuplicateKeyError(err) {
         const value=`${Object.keys(err.keyValue).join(' and ')} already exists in DB`
+        console.log("MongoDuplicateKeyError")
         // const regex = /.*\{.*\:\s*"(.*)"\s*\}/; // Match the pattern: { key: "value" }
         // const match = err.message.match(regex);
         // if (match) {
