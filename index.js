@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
-import axios from "axios"
+const mongoose = require("mongoose");
+const axios = require("axios");
+
 
 let key;
 let secret;
@@ -180,10 +181,10 @@ class ApiLogger {
 
 }
 
-export default ApiLogger;
+module.exports = ApiLogger;
 
 
-const unitCalculation = (processTime) => {
+const unitCalculation = function(processTime) {
     let unit = 'ms';
 
     // Convert to seconds if processTime is >= 1000 milliseconds
