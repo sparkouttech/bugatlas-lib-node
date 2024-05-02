@@ -20,11 +20,11 @@ npm install bugatlas
 Here are the utility functions provided by `bugatlas` along with examples:
 
 ```javascript
-import ApiLogger from "bugatlas";
+import Bugatlas from "bugatlas";
 ```
 
 ```
-const apiLogger = new ApiLogger("YourApiKey", "YourSecretKey");
+const bugatlas = new Bugatlas("YourApiKey", "YourSecretKey");
 ```
 
 **Example:**
@@ -35,7 +35,7 @@ import express from "express";
 import { connectDB } from "./config/db";
 import router from "./router/router";
 import { config } from "dotenv";
-import ApiLogger from "bugatlas";
+import Bugatlas from "bugatlas";
 
 "or"
 
@@ -43,7 +43,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 const router = require("./router/router");
 const dotenv = require("dotenv");
-const ApiLogger = require("bugatlas");
+const Bugatlas = require("bugatlas");
 
 config();
 
@@ -54,9 +54,9 @@ app.use(express.json());
 
 connectDB();
 
-const apiLogger = new ApiLogger("YourApiKey", "YourSecretKey");// Initialize ApiLogger with your API key and secret
+const bugatlas = new Bugatlas("YourApiKey", "YourSecretKey");// Initialize Bugatlas with your API key and secret
 
-app.use(apiLogger.createLog);//add apiLogger as middleware in your express application
+app.use(bugatlas.createLog);//add bugatlas as middleware in your express application
 
 app.use("/", router);// Your routes and other middleware
 
@@ -67,7 +67,7 @@ app.listen(PORT, () => {
 ```
 
  ```
-import ApiLogger from "bugatlas"
+import Bugatlas from "bugatlas"
  ```
 
 Handle Errors in api `routes`.
@@ -78,16 +78,16 @@ Handle Errors in api `routes`.
 //router.js
 import { Project } from "../model/project";
 import { responseHandler } from "../response/responseHandler";
-import ApiLogger from "bugatlas";
+import Bugatlas from "bugatlas";
 
-const apiLogger = new ApiLogger("YourApiKey", "YourSecretKey") // Initialize ApiLogger with your API key and secret
+const bugatlas = new Bugatlas("YourApiKey", "YourSecretKey") // Initialize Bugatlas with your API key and secret
 
 export const createProject = async (req, res) => {
     try {
         const project = await Project.create(req.body)
         if(project)responseHandler(res, 200, "Project created successfully", project,true)
     } catch (error) {
-        await apiLogger.caughtErrors(error)
+        await bugatlas.caughtErrors(error)
         responseHandler(res, 400, error.message, {}, false)
     }
 }

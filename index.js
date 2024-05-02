@@ -5,7 +5,7 @@ const axios = require("axios");
 let key;
 let secret;
 
-class ApiLogger {
+class Bugatlas {
     constructor(apiKey, apiSecret) {
         key = apiKey;
         secret = apiSecret;
@@ -63,13 +63,9 @@ class ApiLogger {
 
     async handleDuplicateKeyError(err) {
         const value=`${Object.keys(err.keyValue).join(' and ')} already exists in DB`
-        console.log("MongoDuplicateKeyError")
-        // const regex = /.*\{.*\:\s*"(.*)"\s*\}/; // Match the pattern: { key: "value" }
-        // const match = err.message.match(regex);
-        // if (match) {
-        //     const duplicateValue = match[1];
+        if(value){
             await this.sendErrorToApi("MongoDuplicateKeyError", value, err.stack);
-        // }
+        }
     }
 
     async handleValidationError(err) {
@@ -100,7 +96,7 @@ class ApiLogger {
                 }
             );
 
-            console.log("sendErrorToApiCompleted", data);
+            // console.log("sendErrorToApiCompleted", data);
         } catch (error) {
             console.error("Error sending error to API:", error.message);
         }
@@ -158,7 +154,7 @@ class ApiLogger {
                             }
                         });
 
-                        console.log(data, "apiLogData");
+                        // console.log(data, "apiLogData");
                     }
                     next();
                 } catch (err) {
@@ -183,7 +179,7 @@ class ApiLogger {
 
 }
 
-module.exports = ApiLogger;
+module.exports = Bugatlas;
 
 
 const unitCalculation = function(processTime) {
