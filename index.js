@@ -102,10 +102,17 @@ class Bugatlas {
         }
     }
 
-    createLog(req, res, next) {
+    async createLog(req, res, next) {
         try {
             const startTime = new Date();
             let responseData = ''; // Variable to store response data
+
+            // Override res.send to capture response data
+            const originalSend = res.send;
+            res.send = function (body) {
+                responseData = JSON.parse(body); // Capture response data
+                originalSend.call(res, body); // Send the response once
+            };
 
             res.on('finish', async () => {
                 try {
@@ -132,12 +139,13 @@ class Bugatlas {
                     };
 
                     if (res.statusCode !== 200 && res.statusCode !== 201) {
-                        const data = await axios.post("https://api.bugatlas.com/v1/api/logs", {
+                        const data = await axios.post("https://api.bugatlas.com/v1/api/errors", {
                             request_url: req.originalUrl,
                             request_method: req.method,
+                            error_message: responseData?.message || '',
                             payload: req.body,
                             meta: {
-                                meta: responseData
+                                data: responseData
                             }
                         }, {
                             headers: {
@@ -156,19 +164,10 @@ class Bugatlas {
 
                         // console.log(data, "apiLogData");
                     }
-                    next();
                 } catch (err) {
                     console.log('Error creating logs:', err.message);
-                    next();
                 }
             });
-
-            // Override res.send to capture response data
-            const originalSend = res.send;
-            res.send = function (body) {
-                responseData = body; // Capture response data
-                originalSend.call(res, body); // Call the original send method
-            };
 
             next();
         } catch (err) {
